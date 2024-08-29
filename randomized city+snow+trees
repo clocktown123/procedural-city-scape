@@ -1,0 +1,46 @@
+import pygame
+import random
+
+pygame.init()
+screen = pygame.display.set_mode((800,600))
+pygame.display.set_caption("Procedural Cityscape")
+
+# Function to draw a building with random features
+def draw_building():
+    xpos = random.randrange(-100, 800)
+    ypos = random.randrange(0, 800)
+    width = random.randrange(100, 200)
+    color = random.randrange(50, 200)
+    pygame.draw.rect(screen, (color, color, color), (xpos, ypos, width, 800)) #building
+    pygame.draw.rect(screen, (0,0,0), (xpos, ypos, width, 800), 2) #black outline
+    for i in range (xpos+10, xpos + width - 20, 30):
+        for j in range(ypos + 10, ypos + 600, 60):
+            pygame.draw.rect(screen, (200, 200, 50), (i, j, 20, 40))#windows
+            
+def draw_stars():
+    xpos = random.randrange(-100, 800)
+    ypos = random.randrange(0, 800)
+    width = random.randrange(1, 20)
+    pygame.draw.circle(screen, (255,255,255), (xpos, ypos), width)
+    
+
+def draw_trees():
+    xpos = random.randrange(-100, 800)
+    ypos = random.randrange(400, 600)
+    width = random.randrange(20, 50)
+    pygame.draw.rect(screen, (139,69,19), (xpos, ypos, width, 600))
+    pygame.draw.polygon(screen, (20, 200, 20), ((xpos+70, ypos+50), (xpos-30, ypos+50), (xpos+25, ypos-40)))
+
+screen.fill((20, 20, 100))
+for i in range(20):
+    draw_building()   
+
+for j in range(200):
+    draw_stars()
+    
+for k in range (10):
+    draw_trees()
+
+pygame.display.flip()
+pygame.time.wait(10000)
+pygame.quit()
